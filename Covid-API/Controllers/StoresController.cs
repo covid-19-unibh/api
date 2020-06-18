@@ -8,7 +8,7 @@ namespace Covid_API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class StoreController : ControllerBase
+    public class StoresController : ControllerBase
     {
         private readonly StoreService storeService = new StoreService();
 
