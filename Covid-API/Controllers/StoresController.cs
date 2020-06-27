@@ -21,7 +21,7 @@ namespace Covid_API.Controllers
         [HttpGet]
         public async Task<IEnumerable<Store>> GetStockList()
         {
-            return await storeService.GetStore();
+            return await storeService.GetStores();
         }
 
         [HttpPut("{id}")]

@@ -6,19 +6,19 @@ using Covid_API.Models;
 
 namespace Covid_API.Data
 {
-    public class CovidData
+    public class FireStoreData
     {
-        protected FirestoreDb dataBase;
+        protected FirestoreDb _dataBase;
 
-        public CovidData()
+        public FireStoreData()
         {
             Environment.SetEnvironmentVariable("GOOGLE_APPLICATION_CREDENTIALS", AppDomain.CurrentDomain.BaseDirectory + Utils.Constants.sdCovid + ".json");
-            dataBase = FirestoreDb.Create(Utils.Constants.sdCovid);
+            _dataBase = FirestoreDb.Create(Utils.Constants.sdCovid);
         }
 
         public async Task<T> GetData<T>(string collPath, string docPath)
         {
-            DocumentReference docRef = dataBase.Collection(collPath).Document(docPath);
+            DocumentReference docRef = _dataBase.Collection(collPath).Document(docPath);
             DocumentSnapshot snap = await docRef.GetSnapshotAsync();
 
             if (snap.Exists)
@@ -29,7 +29,7 @@ namespace Covid_API.Data
 
         public async Task<IEnumerable<T>> GetAllData<T>(string collPath)
         {
-            Query qRef = dataBase.Collection(collPath);
+            Query qRef = _dataBase.Collection(collPath);
 
             QuerySnapshot qSnap = await qRef.GetSnapshotAsync();
 
@@ -46,7 +46,7 @@ namespace Covid_API.Data
 
         public async Task AddUser(User user)
         {
-            CollectionReference coll = dataBase.Collection(Utils.Constants.users);
+            CollectionReference coll = _dataBase.Collection(Utils.Constants.users);
 
             Dictionary<string, object> data = new Dictionary<string, object>()
             {
@@ -59,7 +59,7 @@ namespace Covid_API.Data
 
         public async Task AddStore(Store store)
         {
-            CollectionReference coll = dataBase.Collection(Utils.Constants.stores);
+            CollectionReference coll = _dataBase.Collection(Utils.Constants.stores);
 
             Dictionary<string, object> data = new Dictionary<string, object>()
             {
@@ -72,7 +72,7 @@ namespace Covid_API.Data
 
         public async Task SetData(string collPath, string docPath, dynamic obj)
         {
-            DocumentReference docRef = dataBase.Collection(collPath).Document(docPath);
+            DocumentReference docRef = _dataBase.Collection(collPath).Document(docPath);
             Dictionary<string, object> data = new Dictionary<string, object>()
             {
                 { "location", obj.location },
@@ -87,7 +87,7 @@ namespace Covid_API.Data
 
         public async Task SetDataField(string collPath, string docPath, dynamic user)
         {
-            DocumentReference docRef = dataBase.Collection(collPath).Document(docPath);
+            DocumentReference docRef = _dataBase.Collection(collPath).Document(docPath);
             Dictionary<string, object> data = new Dictionary<string, object>()
             {
                 { "isSick", user.isSick }
@@ -100,7 +100,7 @@ namespace Covid_API.Data
 
         public async Task DeleteData(string collPath, string docPath)
         {
-            DocumentReference docRef = dataBase.Collection(collPath).Document(docPath);
+            DocumentReference docRef = _dataBase.Collection(collPath).Document(docPath);
             await docRef.DeleteAsync();
         }
     }

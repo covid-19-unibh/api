@@ -1,8 +1,11 @@
+using Covid_API.Models;
+using Covid_API.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Options;
 
 namespace Covid_API
 {
@@ -18,6 +21,12 @@ namespace Covid_API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<MongoConnectionSettings>(Configuration.GetSection(nameof(MongoConnectionSettings)));
+
+            services.AddSingleton<IMongoConnectionSettings>(sp => sp.GetRequiredService<IOptions<MongoConnectionSettings>>().Value);
+
+            services.AddSingleton<CasesService>(); 
+
             services.AddControllers();
 
             //services

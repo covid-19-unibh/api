@@ -7,36 +7,36 @@ namespace Covid_API.Services
 {
     public class StoreService
     {
-        private readonly CovidData covidData = new CovidData();
+        private readonly FireStoreData fireStoreData = new FireStoreData();
 
         public async Task<Store> GetStore(string docPath)
         {
-            return await covidData.GetData<Store>(Utils.Constants.stores, docPath);
+            return await fireStoreData.GetData<Store>(Utils.Constants.stores, docPath);
         }
 
-        public async Task<IEnumerable<Store>> GetStore()
+        public async Task<IEnumerable<Store>> GetStores()
         {
-            return await covidData.GetAllData<Store>(Utils.Constants.stores);
+            return await fireStoreData.GetAllData<Store>(Utils.Constants.stores);
         }
 
         public async Task AddStore(Store store)
         {
-            await covidData.AddStore(store);
+            await fireStoreData.AddStore(store);
         }
 
         public async Task SetStore(string docPath, Store store)
         {
-            await covidData.SetData(Utils.Constants.stores, docPath, store);
+            await fireStoreData.SetData(Utils.Constants.stores, docPath, store);
         }
 
         public async Task SetStoreField(string docPath, Store store)
         {
-            await covidData.SetDataField(Utils.Constants.stores, docPath, store);
+            await fireStoreData.SetDataField(Utils.Constants.stores, docPath, store);
         }
 
         public async Task DeleteStore(string docPath)
         {
-            await covidData.DeleteData(Utils.Constants.stores, docPath);
+            await fireStoreData.DeleteData(Utils.Constants.stores, docPath);
         }
     }
 }

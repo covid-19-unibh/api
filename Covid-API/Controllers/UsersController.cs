@@ -1,16 +1,14 @@
 ﻿using Covid_API.Models;
 using Covid_API.Services;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Covid_API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class CovidController : ControllerBase
+    public class UsersController : ControllerBase
     {
         private readonly UserService userService = new UserService();
 
@@ -27,7 +25,7 @@ namespace Covid_API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutStock(string docPath, User user)
+        public async Task<IActionResult> PutUser(string docPath, User user)
         {
             await userService.SetUser(docPath, user);
             return NoContent();
