@@ -15,7 +15,7 @@ namespace Covid_API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<User>> GetUser(string docPath)
         {
-            return await userService.GetUser(docPath);; 
+            return await userService.GetUser(docPath);
         }
 
         [HttpGet]
