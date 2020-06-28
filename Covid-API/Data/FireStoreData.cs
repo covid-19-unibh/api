@@ -64,7 +64,7 @@ namespace Covid_API.Data
             Dictionary<string, object> data = new Dictionary<string, object>()
             {
                 { "location", store.location },
-                { "product", store.product },
+                { "product", store.products },
                 { "cnpjStore", store.cnpjStore }
             };
             await coll.AddAsync(data);
