@@ -1,5 +1,6 @@
 using Covid_API.Models;
 using Covid_API.Services;
+using Google.Api;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -25,7 +26,9 @@ namespace Covid_API
 
             services.AddSingleton<IMongoConnectionSettings>(sp => sp.GetRequiredService<IOptions<MongoConnectionSettings>>().Value);
 
-            services.AddSingleton<CasesService>(); 
+            services.AddSingleton<CasesService>();
+
+            services.AddCors();
 
             services.AddControllers();
 
@@ -56,6 +59,11 @@ namespace Covid_API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(x => x
+               .AllowAnyOrigin()
+               .AllowAnyMethod()
+               .AllowAnyHeader());
 
             app.UseAuthentication();
 
